@@ -15,7 +15,6 @@ import java.util.List;
 
 @Stateless
 public class ClientManagerImpl implements ClientManager {
-    //SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
     public Logger log = Logger.getLogger(ClientManagerImpl.class);
     @EJB
     public ConnectionDB connectionDB;
@@ -23,14 +22,14 @@ public class ClientManagerImpl implements ClientManager {
     //unchecked null
     public boolean validate(String nickname, String password,
                             String firstName, String lastName, String birthday) {
-        if (nickname.length() != 20) return false;
+        if (nickname.length() < 5) return false;
         if (password.length() < 1) return false;
         if (firstName.length() < 1) return false;
         if (lastName.length() < 1) return false;
         try {
             String split[] = birthday.split("[.]");
             if (Integer.parseInt(split[0]) < 0 || Integer.parseInt(split[0]) > 31) return false;
-            if (Integer.parseInt(split[1]) < 0 || Integer.parseInt(split[1]) > 12) return false;
+            if (Integer.parseInt(split[1]) < 0 || Integer.parseInt(split[1]) > 13) return false;
             if (Integer.parseInt(split[2]) < 0 || Integer.parseInt(split[2]) > 9999) return false;
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             log.debug("invalid not passed the validation");
@@ -125,7 +124,7 @@ public class ClientManagerImpl implements ClientManager {
     private Date convertDate(String birthday) {
         String split[] = birthday.split("[.]");
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Integer.parseInt(split[2]), Integer.parseInt(split[1]),
+        calendar.set(Integer.parseInt(split[2]), Integer.parseInt(split[1]) - 1,
                 Integer.parseInt(split[0]));
         return new Date(calendar.getTimeInMillis());
     }

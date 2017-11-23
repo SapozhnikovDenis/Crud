@@ -17,6 +17,10 @@ public class IndexServlet extends HttpServlet {
     private Logger log = Logger.getLogger(IndexServlet.class);
     @EJB private ClientManager cm;
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("pages/index.jsp").forward(req, resp);
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,12 +40,10 @@ public class IndexServlet extends HttpServlet {
             else if (str.equals("delete")) cm.delete(nickname);
             else if (str.equals("update")) cm.update(nickname, password, firstName, lastName, birthday);
             else if (str.equals("select")) {
-                log.debug("servlet redirect request in select.jsp");
-                req.getRequestDispatcher("select").forward(req, resp);
+                log.debug("servlet redirect request in select");
+                req.getRequestDispatcher("pages/select.jsp").forward(req, resp);
             }
         }
-
-        log.debug("servlet completed work");
         req.getRequestDispatcher("pages/index.jsp").forward(req, resp);
     }
 }

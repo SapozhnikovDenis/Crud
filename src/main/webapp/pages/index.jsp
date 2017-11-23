@@ -8,8 +8,8 @@
 <center>
     <form action="/index"  method="post">
         <h1>Work with database</h1>
-        <br><h7>Nickname:</h7> <input type="text" size="20" name="nickname" value="nickname210123456789"><br>
-        <br><h7>Password:</h7> <input type="text" size="20" name="password" value="qwerty123"><br>
+        <br><h7>Nickname:</h7> <input type="text" size="20" name="nickname" value="Nickname"><br>
+        <br><h7>Password:</h7> <input type="text" size="20" name="password" value="Password"><br>
         <br><h7>First name:</h7> <input type="text" size="20" name="firstName" value="Firstname"><br>
         <br><h7>Last name:</h7> <input type="text" size="20" name="lastName" value="Lastname"><br>
         <br><h7>Birthday:</h7> <input type="text" size="20" name="birthday" value="20.10.1990"><br>
