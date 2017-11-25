@@ -17,7 +17,6 @@
         </tr>
         <jsp:include page="/select"/>
     </table>
-    <br>
 </center>
 </body>
 </html>
