@@ -34,7 +34,6 @@ public class IndexServlet extends HttpServlet {
         String lastName = "" + req.getParameter("lastName");
         String birthday = "" + req.getParameter("birthday");
 
-        //Operation was successfully completed?
         boolean completed = true;
         Enumeration flds = req.getParameterNames();
         while (flds.hasMoreElements()) {
@@ -47,6 +46,9 @@ public class IndexServlet extends HttpServlet {
                 req.getRequestDispatcher("pages/select.jsp").forward(req, resp);
             }
         }
+        if (completed) req.setAttribute("completed", "Operation completed");
+        else req.setAttribute("completed", "Operation not completed");
+
         req.getRequestDispatcher("pages/index.jsp").forward(req, resp);
     }
 }

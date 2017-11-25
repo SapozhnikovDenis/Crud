@@ -9,8 +9,6 @@ import java.util.List;
 
 @Local
 public interface ClientManager {
-    boolean validate(String nickname, String password,
-                     String firstName, String lastName, String birthday);
 
     boolean add(String nickname, String password,
                        String firstName, String lastName, String birthday);

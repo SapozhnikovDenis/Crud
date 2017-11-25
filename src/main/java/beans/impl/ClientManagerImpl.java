@@ -21,10 +21,8 @@ import java.util.List;
 
 @Stateless
 public class ClientManagerImpl implements ClientManager {
-    public Logger log = Logger.getLogger(ClientManagerImpl.class);
-
-    @EJB
-    public ConnectionDB connectionDB;
+    private Logger log = Logger.getLogger(ClientManagerImpl.class);
+    @EJB private ConnectionDB connectionDB;
 
     @Resource(name = "jms/crud")
     private ConnectionFactory connectionFactory;
@@ -32,7 +30,7 @@ public class ClientManagerImpl implements ClientManager {
     @Resource(name = "QueueCrud")
     private Destination destination;
 
-    public boolean validate(String nickname, String password,
+    private boolean validate(String nickname, String password,
                             String firstName, String lastName, String birthday) {
         if (nickname.length() < 5) return false;
         if (password.length() < 1) return false;
@@ -65,8 +63,12 @@ public class ClientManagerImpl implements ClientManager {
             ps.setString(4, lastName);
             ps.setDate(5, convertDate(birthday));
             ps.executeUpdate();
-            log.debug("user add DB");
-            sendHistory(nickname, "add");
+            if (!sendHistory(nickname, "add")) {
+                log.error("User not add in DB");
+                return false;
+            }
+            else
+                log.debug("user add in DB");
         } catch (SQLException e) {
             log.error("insert is fall");
             return false;
@@ -87,8 +89,12 @@ public class ClientManagerImpl implements ClientManager {
             ps.setDate(4, convertDate(birthday));
             ps.setString(5, nickname);
             ps.executeUpdate();
-            log.debug("user update DB");
-            sendHistory(nickname, "update");
+            if (!sendHistory(nickname, "update")) {
+                log.error("user not update in DB");
+                return false;
+            }
+            else
+                log.debug("user update in DB");
         } catch (SQLException e) {
             log.error("update is fall");
             return false;
@@ -98,18 +104,16 @@ public class ClientManagerImpl implements ClientManager {
 
     public boolean delete(String nickname) {
         try {
-            sendHistory(nickname, "delete");
+            if (!sendHistory(nickname, "delete")) {
+                log.error("user not delete in DB");
+                return false;
+            }
             Statement st = connectionDB.getConnection().createStatement();
             st.execute("DELETE FROM USERS WHERE nickname = '" + nickname + "';");
-
-//            PreparedStatement ps = connectionDB.getConnection().prepareStatement("DELETE FROM USERS " +
-//                    "WHERE nickname = (?)");
-//            ps.setString(1, nickname);
-//            ps.executeUpdate();
             log.debug("user delete DB");
             st.close();
         } catch (SQLException e) {
-            log.error("delete is fall");
+            log.error("delete is fall", e);
             return false;
         }
         return true;
@@ -146,50 +150,47 @@ public class ClientManagerImpl implements ClientManager {
         return new Date(calendar.getTimeInMillis());
     }
 
-    private void sendHistory(String nickname, String action) {
-        byte[] bytes = createXML(findUserInDB(nickname));
-        if (bytes != null) {
+    private boolean sendHistory(String nickname, String action){
             try {
+                byte[] xmlInByte = createXML(findUserInDB(nickname));
                 javax.jms.Connection connectionJMS = connectionFactory.createConnection();
                 Session session = connectionJMS.createSession(true, Session.AUTO_ACKNOWLEDGE);
                 MessageProducer producer = session.createProducer(destination);
                 BytesMessage message = session.createBytesMessage();
-                message.setStringProperty("clientType", action);
-                message.writeBytes(bytes);
+
+                message.setStringProperty("action", action);
+                message.writeBytes(xmlInByte);
                 producer.send(message);
+
                 log.debug("message sent");
                 session.close();
                 connectionJMS.close();
-            } catch (JMSException e) {
-                log.error("Sending message error", e);
+            } catch (JMSException|SQLException|IllegalArgumentException e) {
+                log.error("error sending message");
+                return false;
             }
-        }
+            return true;
     }
 
-    private User findUserInDB(String nickname) {
+    private User findUserInDB(String nickname) throws SQLException {
         User user = new User();
-        try {
-            Statement st = connectionDB.getConnection().createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM USERS WHERE nickname = '" + nickname + "';");
-            while (rs.next()) {
-                user.setId(rs.getLong("id"));
-                user.setNickname(rs.getString("nickname"));
-                user.setPassword(rs.getString("password"));
-                user.setFirstName(rs.getString("firstname"));
-                user.setLastName(rs.getString("lastname"));
-                user.setBirthday((java.util.Date)rs.getDate("birthday"));
-            }
-            st.close();
-        } catch (SQLException e) {
-            log.error("findUserInDB is fall", e);
+        Statement st = connectionDB.getConnection().createStatement();
+        ResultSet rs = st.executeQuery("SELECT * FROM USERS WHERE nickname = '" + nickname + "';");
+        while (rs.next()) {
+            user.setId(rs.getLong("id"));
+            user.setNickname(rs.getString("nickname"));
+            user.setPassword(rs.getString("password"));
+            user.setFirstName(rs.getString("firstname"));
+            user.setLastName(rs.getString("lastname"));
+            user.setBirthday((java.util.Date)rs.getDate("birthday"));
         }
-        if (user.getNickname() == null) return null;
-        log.debug("user found " + user.toString());
+        st.close();
+        if (user.getNickname() == null)
+            throw new IllegalArgumentException();
         return user;
     }
 
     private byte[] createXML(User user) {
-        if (user == null) return null;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(User.class);

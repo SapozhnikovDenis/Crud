@@ -19,6 +19,10 @@
         <button type="submit" name="delete">delete</button>
         <button type="submit" name="select">select</button>
     </form>
+    <%if(request.getAttribute("completed") == null){%>
+    <% }else{%>
+    <%=request.getAttribute("completed")%>
+    <%}%>
 </center>
 </body>
 </html>
