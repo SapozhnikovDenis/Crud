@@ -26,8 +26,8 @@ public class Auditor implements MessageListener {
             bm.readBytes(b);
             User user = readXML(new ByteArrayInputStream(b));
             String action = bm.getStringProperty("action");
-            writeDB(user, action);
-            test();
+            writeInDB(user, action);
+            writeHistoryInLog();
         } catch (JMSException e) {
             log.debug("JMS is fall", e);
         }
@@ -45,7 +45,7 @@ public class Auditor implements MessageListener {
         return user;
     }
 
-    private boolean writeDB(User user, String action) {
+    private boolean writeInDB(User user, String action) {
         try {
             PreparedStatement ps = connectionDB.getConnection().prepareStatement("INSERT INTO HISTORY " +
                     " (action, user_id, nickname, time) VALUES (?,?,?,?);");
@@ -62,7 +62,8 @@ public class Auditor implements MessageListener {
         return true;
     }
 
-    private void test() {
+    //test method
+    private void writeHistoryInLog() {
         try {
             Statement st = connectionDB.getConnection().createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM HISTORY;");

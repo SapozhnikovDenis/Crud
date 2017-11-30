@@ -2,7 +2,6 @@ package view;
 
 import beans.ClientManager;
 import org.apache.log4j.Logger;
-import service.Service;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -10,7 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.Endpoint;
+
 import java.io.IOException;
 import java.util.Enumeration;
 
@@ -21,8 +20,6 @@ public class IndexServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        Endpoint.publish("http://localhost:9999/kek",
-//                new Service());
         log.debug("---------------");
         log.debug("user do request");
 

@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.ejb.Startup;
 import javax.ejb.Stateless;
 import javax.jms.*;
 import javax.jws.WebMethod;
