@@ -15,8 +15,6 @@ public class ConnectionDBImpl implements ConnectionDB {
     private Logger log = Logger.getLogger(ConnectionDBImpl.class);
     private Connection connection;
 
-    public ConnectionDBImpl() {}
-
     private void initializeConnection() {
         try {
             Class.forName("org.h2.Driver");
@@ -37,6 +35,7 @@ public class ConnectionDBImpl implements ConnectionDB {
                 "action VARCHAR (20), user_id BIGINT NOT NULL, nickname VARCHAR (20) NOT NULL, time DATE);");
     }
 
+    @Override
     public Connection getConnection() {
         if (connection == null) initializeConnection();
         return connection;

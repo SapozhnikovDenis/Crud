@@ -2,10 +2,11 @@ package entity;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.util.Date;
 
 @XmlRootElement(name = "user")
-public class User {
+public class User implements Serializable{
     private Long id;
     private String nickname;
     private String password;

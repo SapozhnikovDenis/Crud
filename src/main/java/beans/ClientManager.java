@@ -5,7 +5,11 @@ import entity.User;
 
 import javax.ejb.Local;
 import javax.ejb.Remote;
+import javax.jws.WebMethod;
+import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
 import java.util.List;
+
 
 @Local
 public interface ClientManager {

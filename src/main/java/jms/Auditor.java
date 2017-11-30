@@ -14,8 +14,8 @@ import java.io.*;
 import java.sql.*;
 
 @MessageDriven(mappedName="QueueCrud")
-public class Listener implements MessageListener {
-    private static final Logger log = Logger.getLogger(Listener.class);
+public class Auditor implements MessageListener {
+    private static final Logger log = Logger.getLogger(Auditor.class);
     @EJB private ConnectionDB connectionDB;
 
     @Override

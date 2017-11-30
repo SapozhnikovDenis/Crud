@@ -9,6 +9,8 @@ import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jms.*;
+import javax.jws.WebMethod;
+import javax.jws.WebService;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -17,7 +19,6 @@ import java.sql.*;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
-
 
 @Stateless
 public class ClientManagerImpl implements ClientManager {
@@ -49,6 +50,7 @@ public class ClientManagerImpl implements ClientManager {
         return true;
     }
 
+    @Override
     public boolean add(String nickname, String password,
                        String firstName, String lastName, String birthday) {
 
@@ -75,7 +77,7 @@ public class ClientManagerImpl implements ClientManager {
         }
         return true;
     }
-
+    @Override
     public boolean update(String nickname, String password,
                           String firstName, String lastName, String birthday) {
         if (!validate(nickname, password, firstName, lastName, birthday)) return false;
@@ -101,7 +103,7 @@ public class ClientManagerImpl implements ClientManager {
         }
         return true;
     }
-
+    @Override
     public boolean delete(String nickname) {
         try {
             if (!sendHistory(nickname, "delete")) {
@@ -119,6 +121,7 @@ public class ClientManagerImpl implements ClientManager {
         return true;
     }
 
+    @Override
     public List<User> select() {
         List<User> users = new LinkedList<>();
         try {
