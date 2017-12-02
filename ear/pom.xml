@@ -23,7 +23,7 @@
             <groupId>Crud</groupId>
             <artifactId>ejb</artifactId>
             <version>1.0</version>
-            <type>ejb</type>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>Crud</groupId>
