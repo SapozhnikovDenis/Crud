@@ -22,7 +22,7 @@ import java.sql.*;
 @MessageDriven(mappedName="QueueCrud")
 public class Auditor implements MessageListener {
     private static final Logger log = Logger.getLogger(Auditor.class);
-    @EJB(mappedName = "connect")
+    @Inject
     private ConnectionDB connectionDB;
 
     @Override

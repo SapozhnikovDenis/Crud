@@ -1,7 +1,8 @@
 package service;
 
 
-import entity.User;
+
+
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -20,6 +21,6 @@ public interface ServiceSOAP {
     @WebMethod
     public boolean delete(String nickname);
 
-    @WebMethod
-    public List<User> select();
+//    @WebMethod
+//    public List<User> select();
 }

@@ -4,13 +4,12 @@ import connect.ConnectionDB;
 import org.apache.log4j.Logger;
 
 import javax.ejb.Singleton;
-import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-@Singleton(mappedName = "connect")
+@Singleton
 public class ConnectionDBImpl implements ConnectionDB {
     private Logger log = Logger.getLogger(ConnectionDBImpl.class);
     private Connection connection;

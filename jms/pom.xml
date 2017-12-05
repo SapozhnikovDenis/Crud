@@ -55,7 +55,6 @@
             <groupId>Crud</groupId>
             <artifactId>ejb</artifactId>
             <version>1.0</version>
-            <type>jar</type>
         </dependency>
     </dependencies>
 

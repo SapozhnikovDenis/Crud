@@ -9,11 +9,10 @@
     <version>3.0</version>
     <modules>
         <module>web</module>
-        <module>service</module>
         <module>ejb</module>
         <module>jms</module>
-        <module>client</module>
         <module>ear</module>
+        <module>service</module>
     </modules>
     <packaging>pom</packaging>
 </project>

@@ -5,7 +5,7 @@ import beans.ClientManager;
 import entity.User;
 import org.apache.log4j.Logger;
 
-import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +20,7 @@ import java.util.List;
 public class SelectServlet extends HttpServlet {
     private Logger log = Logger.getLogger(SelectServlet.class);
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-    @EJB
+    @Inject
     private ClientManager clientManager;
 
     @Override
@@ -28,7 +28,7 @@ public class SelectServlet extends HttpServlet {
         log.debug("user select DB");
         PrintWriter out = resp.getWriter();
         List<User> list = clientManager.select();
-        out.print("<button type=\"submit\" name=\"action\" onclick=\"location.href='http://localhost:8080/pages/index.jsp'\">acton</button><br>");
+        out.print("<button type=\"submit\" name=\"action\" onclick=\"location.href='http://localhost:8080/web/pages/index.jsp'\">acton</button><br>");
         for (User iter: list) {
             out.print("<tr><th>" + iter.getId() +"</th><th>" + iter.getNickname() +
                     "</th><th>" + iter.getPassword() + "</th><th>" + iter.getFirstName()

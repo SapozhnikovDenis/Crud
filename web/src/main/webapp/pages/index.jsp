@@ -7,7 +7,7 @@
 </head>
 <body>
 <center>
-    <form action="/index"  method="post">
+    <form action="/web/index"  method="post">
         <h1>Work with database</h1>
         <br><h7>Nickname:</h7> <input type="text" size="20" name="nickname" value="Nickname"><br>
         <br><h7>Password:</h7> <input type="text" size="20" name="password" value="Password"><br>

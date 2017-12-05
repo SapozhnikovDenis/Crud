@@ -6,14 +6,9 @@ import entity.User;
 import org.apache.log4j.Logger;
 
 import javax.annotation.Resource;
-import javax.ejb.EJB;
-import javax.ejb.Startup;
-import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.jms.*;
-import javax.jws.WebMethod;
-import javax.jws.WebService;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -26,7 +21,7 @@ import java.util.List;
 @Stateless
 public class ClientManagerImpl implements ClientManager {
     private Logger log = Logger.getLogger(ClientManagerImpl.class);
-    @EJB(mappedName = "connect")
+    @Inject
     private ConnectionDB connectionDB;
 
     @Resource(name = "jms/crud")

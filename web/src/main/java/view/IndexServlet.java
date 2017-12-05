@@ -3,7 +3,6 @@ package view;
 import beans.ClientManager;
 import org.apache.log4j.Logger;
 
-import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +16,7 @@ import java.util.Enumeration;
 @WebServlet(urlPatterns = "/index")
 public class IndexServlet extends HttpServlet {
     private Logger log = Logger.getLogger(IndexServlet.class);
-    @EJB
+    @Inject
     private ClientManager clientManager;
 
     @Override

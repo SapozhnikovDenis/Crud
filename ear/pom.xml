@@ -15,27 +15,9 @@
     <dependencies>
         <dependency>
             <groupId>Crud</groupId>
-            <artifactId>client</artifactId>
-            <version>1.0</version>
-            <type>war</type>
-        </dependency>
-        <dependency>
-            <groupId>Crud</groupId>
-            <artifactId>ejb</artifactId>
-            <version>1.0</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>Crud</groupId>
-            <artifactId>jms</artifactId>
-            <version>1.0</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>Crud</groupId>
             <artifactId>service</artifactId>
             <version>1.0</version>
-            <type>jar</type>
+            <type>war</type>
         </dependency>
         <dependency>
             <groupId>Crud</groupId>

@@ -13,7 +13,6 @@
     <groupId>Crud</groupId>
     <artifactId>client</artifactId>
     <version>1.0</version>
-    <packaging>war</packaging>
 
     <dependencies>
         <dependency>
@@ -56,20 +55,11 @@
             <groupId>Crud</groupId>
             <artifactId>service</artifactId>
             <version>1.0</version>
-            <type>jar</type>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.1.1</version>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
