@@ -1,17 +1,14 @@
-package beans.impl;
+package ejb.clientManager.impl;
 
-import beans.ClientManager;
-import connect.ConnectionDB;
+import ejb.clientManager.ClientManager;
+import ejb.connect.ConnectionDB;
 import entity.User;
 import org.apache.log4j.Logger;
 
 import javax.annotation.Resource;
 import javax.ejb.EJB;
-import javax.ejb.Startup;
 import javax.ejb.Stateless;
 import javax.jms.*;
-import javax.jws.WebMethod;
-import javax.jws.WebService;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -161,7 +158,6 @@ public class ClientManagerImpl implements ClientManager {
                 Session session = connectionJMS.createSession(true, Session.AUTO_ACKNOWLEDGE);
                 MessageProducer producer = session.createProducer(destination);
                 BytesMessage message = session.createBytesMessage();
-
                 message.setStringProperty("action", action);
                 message.writeBytes(xmlInByte);
                 producer.send(message);

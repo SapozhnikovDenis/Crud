@@ -1,7 +1,6 @@
-package connect;
+package ejb.connect;
 
 import javax.ejb.Local;
-import javax.ejb.Remote;
 import java.sql.Connection;
 
 @Local

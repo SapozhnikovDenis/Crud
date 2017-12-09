@@ -1,6 +1,6 @@
 package view;
 
-import beans.ClientManager;
+import ejb.clientManager.ClientManager;
 import org.apache.log4j.Logger;
 
 import javax.ejb.EJB;

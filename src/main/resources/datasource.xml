@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<connection>
+    <url>jdbc:h2:mem:test</url>
+    <driver>org.h2.Driver</driver>
+    <user>admin</user>
+    <password>pass</password>
+</connection>

@@ -1,6 +1,5 @@
-package beans;
+package ejb.clientManager;
 
-import connect.ConnectionDB;
 import entity.User;
 
 import javax.ejb.Remote;

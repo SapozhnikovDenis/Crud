@@ -1,16 +1,14 @@
 package service;
 
 
-import beans.ClientManager;
+import ejb.clientManager.ClientManager;
 import entity.User;
 import org.apache.log4j.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.*;
 import javax.jws.WebService;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import java.util.LinkedList;
 import java.util.List;
 
 @WebService(endpointInterface = "service.ServiceSOAP")

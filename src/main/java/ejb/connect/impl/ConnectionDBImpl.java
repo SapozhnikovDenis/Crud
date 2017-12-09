@@ -1,10 +1,13 @@
-package connect.impl;
+package ejb.connect.impl;
 
-import connect.ConnectionDB;
+import ejb.connect.ConnectionDB;
 import org.apache.log4j.Logger;
 
 import javax.ejb.Singleton;
-import java.io.Serializable;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -17,10 +20,14 @@ public class ConnectionDBImpl implements ConnectionDB {
 
     private void initializeConnection() {
         try {
-            Class.forName("org.h2.Driver");
-            connection = DriverManager.getConnection("jdbc:h2:mem:test", "", "");
+            File file = new File(ConnectionDB.class.getClassLoader().getResource("datasource.xml").getFile());
+            JAXBContext jaxbContext = JAXBContext.newInstance(Connect.class);
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            Connect connect = (Connect) jaxbUnmarshaller.unmarshal(file);
+            Class.forName(connect.getDriver());
+            connection = DriverManager.getConnection(connect.getUrl(),connect.getUser(),connect.getPassword());
             createTable();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (Exception e) {
             log.error("connection falled down",e);
         }
     }

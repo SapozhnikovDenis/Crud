@@ -1,6 +1,6 @@
 package jms;
 
-import connect.ConnectionDB;
+import ejb.connect.ConnectionDB;
 import entity.User;
 import org.apache.log4j.Logger;
 
