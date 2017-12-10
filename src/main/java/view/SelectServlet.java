@@ -26,12 +26,13 @@ public class SelectServlet extends HttpServlet {
         log.debug("user select DB");
         PrintWriter out = resp.getWriter();
         List<User> list = clientManager.select();
-        out.print("<button type=\"submit\" name=\"action\" onclick=\"location.href='http://localhost:8080/pages/index.jsp'\">acton</button><br>");
         for (User iter: list) {
             out.print("<tr><th>" + iter.getId() +"</th><th>" + iter.getNickname() +
                     "</th><th>" + iter.getPassword() + "</th><th>" + iter.getFirstName()
                     +"</th><th>" + iter.getLastName() + "</th><th>" + dateFormat.format(iter.getBirthday()) + "</th></tr>");
         }
+        out.print("</table>");
+        out.print("<button type=\"submit\" name=\"action\" onclick=\"location.href='http://localhost:8080/pages/index.jsp'\" class=\"btn btn-success\">action</button>");
         out.close();
     }
 }

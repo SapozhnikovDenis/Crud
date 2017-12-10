@@ -2,11 +2,15 @@
 <html>
 <head>
     <title>Select</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/sign.css">
 </head>
 <body>
 <center>
-    <h1>Users list</h1>
-    <table border="1" width="50%" cellpadding="5">
+    <div class="container">
+    <h1 class="form-signin-heading">Users list</h1>
+    <table class="table table-striped">
         <tr>
             <th>Id</th>
             <th>Nickname</th>
@@ -17,6 +21,7 @@
         </tr>
         <jsp:include page="/select"/>
     </table>
+    </div>
 </center>
 </body>
 </html>

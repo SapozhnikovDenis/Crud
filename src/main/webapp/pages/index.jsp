@@ -4,25 +4,31 @@
 <head>
     <title>Action</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/sign.css">
 </head>
 <body>
 <center>
-    <form action="/index"  method="post">
-        <h1>Work with database</h1>
-        <br><h7>Nickname:</h7> <input type="text" size="20" name="nickname" value="Nickname"><br>
-        <br><h7>Password:</h7> <input type="text" size="20" name="password" value="Password"><br>
-        <br><h7>First name:</h7> <input type="text" size="20" name="firstName" value="Firstname"><br>
-        <br><h7>Last name:</h7> <input type="text" size="20" name="lastName" value="Lastname"><br>
-        <br><h7>Birthday:</h7> <input type="text" size="20" name="birthday" value="20.10.1990"><br>
-        <br><button type="submit" name="add">add</button>
-        <button type="submit" name="update">update</button>
-        <button type="submit" name="delete">delete</button>
-        <button type="submit" name="select">select</button>
+    <div class="container">
+        <h1 class="form-signin-heading">Work with database</h1>
+        <form action="/index"  method="post" class="form-signin">
+        <input type="text" size="10" name="nickname" value="Nickname" class="form-control" required><br>
+        <input type="text" size="20" name="password" value="Password" class="form-control" required><br>
+        <input type="text" size="20" name="firstName" value="Firstname" class="form-control" required><br>
+        <input type="text" size="20" name="lastName" value="Lastname" class="form-control" required><br>
+        <input type="text" size="20" name="birthday" value="20.10.1990" class="form-control" required><br>
+        <br><button type="submit" name="add" class="btn btn-success">Add</button>
+        <button type="submit" name="update" class="btn btn-warning">Update</button>
+        <button type="submit" name="delete" class="btn btn-danger">Delete</button>
+        <button type="submit" name="select" class="btn btn-success">Select</button>
     </form>
     <%if(request.getAttribute("completed") == null){%>
     <% }else{%>
+        <h4>
     <%=request.getAttribute("completed")%>
+        </h4>
     <%}%>
+    </div>
 </center>
 </body>
 </html>
